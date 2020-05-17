@@ -18,17 +18,6 @@ class App extends Component {
     alert: null
   }
 
-  // async componentDidMount(){
-  //   this.setState({ loading : true })
-  //   const res = await axios.get(`https://api.github.com/users`, {
-  //     auth: {
-  //       username:process.env.REACT_APP_GITHUB_CLIENT_ID,
-  //       password:process.env.REACT_APP_GITHUB_CLIENT_SECRET
-  //     }
-  //   })
-  //   this.setState({ users:res.data, loading:false })
-  // }
-
   searchUsers = async(text) => {
     this.setState({ loading : true })
     const res = await axios.get(`https://api.github.com/search/users?q=${text}`, {
