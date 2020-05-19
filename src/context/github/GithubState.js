@@ -10,6 +10,17 @@ import {
     GET_REPOS
 } from '../types'
 
+let githubClientId;
+let githubClientSecret;
+
+if(process.env.NODE_ENV !== 'production'){
+  githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET
+  githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID
+} else {
+  githubClientSecret = process.env.GITHUB_CLIENT_SECRET
+  githubClientId = process.env.GITHUB_CLIENT_ID
+}
+
 const GithubState = props => {
     const initialState ={
         users:[],
@@ -26,8 +37,8 @@ const GithubState = props => {
         setLoading()
         const res = await axios.get(`https://api.github.com/search/users?q=${text}`, {
           auth: {
-            username:process.env.REACT_APP_GITHUB_CLIENT_ID,
-            password:process.env.REACT_APP_GITHUB_CLIENT_SECRET
+            username:githubClientId,
+            password:githubClientSecret
           }
         })
         // setUsers(res.data.items)
@@ -43,8 +54,8 @@ const GithubState = props => {
         setLoading()
         const res = await axios.get(`https://api.github.com/users/${username}`, {
           auth: {
-            username:process.env.REACT_APP_GITHUB_CLIENT_ID,
-            password:process.env.REACT_APP_GITHUB_CLIENT_SECRET
+            username:githubClientId,
+            password:githubClientSecret
           }
         })
         dispatch({
@@ -58,8 +69,8 @@ const GithubState = props => {
         setLoading()
         const res = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc`, {
           auth: {
-            username:process.env.REACT_APP_GITHUB_CLIENT_ID,
-            password:process.env.REACT_APP_GITHUB_CLIENT_SECRET
+            username:githubClientId,
+            password:githubClientSecret
           }
         })
         // setRepos(res.data)
